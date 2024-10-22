@@ -1,0 +1,33 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .search-box {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+  }
+
+  .order-by-price {
+    width: 90px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+
+    .search-box {
+      width: 100%;
+    }
+
+    .sort-order {
+      width: 100%;
+    }
+  }
+}
