@@ -1,0 +1,46 @@
+form {
+  input,
+  label {
+    width: 100%;
+  }
+
+  input {
+    border-radius: 5px;
+  }
+
+  label {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  input,
+  textarea {
+    height: 40px;
+    font-size: 16px;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .form__control {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  input.is-error {
+    border-color: $txt-error-color;
+  }
+
+  .is-error {
+    color: $txt-error-color;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  form input {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

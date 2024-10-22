@@ -1,0 +1,102 @@
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    th {
+      color: $txt-normal-color;
+      text-align: left;
+      padding: 12px 8px;
+      background-color: #f1f1f1;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 12px 8px;
+      color: $txt-normal-color;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 45px 8px !important;
+
+    .star {
+      color: #ffc107;
+      cursor: pointer;
+    }
+
+    .more-options {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
+}
+
+/* Responsive: Stacking table rows on small screens */
+@media screen and (max-width: 768px) {
+  .product-table {
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background-color: whitesmoke;
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      width: 45%;
+      color: #333;
+    }
+
+    .actions {
+      padding: 12px 8px !important;
+    }
+  }
+}
+
+/* Responsive Adjustments for Small Screens (Phones) */
+@media screen and (max-width: 480px) {
+  .product-table tr {
+    padding: 8px;
+  }
+
+  .product-table td {
+    padding: 6px 0;
+  }
+}
