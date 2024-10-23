@@ -22,7 +22,7 @@ class Validation {
         required: true,
         min: 1,
       },
-      image: {
+      img: {
         required: true,
       },
       desc: {

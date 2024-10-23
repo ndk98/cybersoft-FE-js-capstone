@@ -10,19 +10,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const closeModalBtn = document.getElementById("closeModalBtn");
 
   // Open modal
-  openModalBtn.addEventListener("click", function () {
-    modal.style.display = "flex";
+  openModalBtn.addEventListener("click", () => {
+    document.getElementById("modal-title").textContent = "Add New Product";
+    clearForm();
+    showModal();
   });
 
   // Close modal
-  closeModalBtn.addEventListener("click", function () {
-    modal.style.display = "none";
-  });
+  closeModalBtn.addEventListener("click", hideModal);
 
   // Close modal when clicking outside of the modal content
   window.addEventListener("click", function (event) {
     if (event.target === modal) {
-      modal.style.display = "none";
+      hideModal();
     }
   });
 
@@ -52,8 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Handle add product
+  // Handle save product
   const productForm = document.getElementById("productForm");
+
   productForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -86,18 +87,34 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    productManagement
-      .addProduct(product)
-      .then(() => {
-        getProductListHtml();
-      })
-      .catch((error) => {
-        console.error(error);
-        getProductListHtml();
-      });
+    showLoader();
+    // Save product
+    if (product.id) {
+      productManagement
+        .updateProduct(product)
+        .then(() => {
+          getProductListHtml();
+        })
+        .catch((error) => {
+          console.error(error);
+          getProductListHtml();
+        })
+        .finally(() => hideLoader());
+    } else {
+      productManagement
+        .addProduct(product)
+        .then(() => {
+          getProductListHtml();
+        })
+        .catch((error) => {
+          console.error(error);
+          getProductListHtml();
+        })
+        .finally(() => hideLoader());
+    }
 
     // Close the modal after form submission
-    modal.style.display = "none";
+    hideModal();
   });
 
   const inputs = productForm.getElementsByTagName("input");
@@ -111,57 +128,87 @@ document.addEventListener("DOMContentLoaded", function () {
       errorElement.textContent = "";
     });
   }
-});
 
-const productListElment = document.querySelector("tbody#productList");
-function getProductListHtml() {
-  let productList = productManagement.getProductList();
+  const productListElment = document.querySelector("tbody#productList");
+  function getProductListHtml() {
+    let productList = productManagement.getProductList();
 
-  productList
-    .then((products) => {
-      productListElment.innerHTML = renderProductList(products);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-function addDeleteBtnsEventListeners() {
-  let deleteBtns = productListElment.querySelectorAll(".delete-btn");
-  deleteBtns.forEach((deleteBtn) => {
-    deleteBtn.addEventListener("click", deleteProduct.bind(deleteBtn));
-  });
-}
-
-function deleteProduct() {
-  showLoader();
-  const productId = this.getAttribute("data-id");
-  const product = productManagement.getProductById(productId);
-  const response = productManagement.removeProduct(product);
-  response.then(() => {
-    getProductListHtml();
-    hideLoader();
-  });
-}
-
-// Observe changes in the product list
-const observer = new MutationObserver((mutationsList, observer) => {
-  for (const mutation of mutationsList) {
-    if (mutation.type === "childList") {
-      addDeleteBtnsEventListeners();
-    }
+    productList
+      .then((products) => {
+        productListElment.innerHTML = renderProductList(products);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
-});
-observer.observe(productListElment, { childList: true, subtree: true });
 
-function renderProductList(products) {
-  document.getElementById("total-products").textContent = products.length;
+  // Add event listeners to edit buttons
+  function addEditBtnsEventListeners() {
+    let editBtns = productListElment.querySelectorAll(".edit-btn");
+    editBtns.forEach((editBtn) => {
+      editBtn.addEventListener("click", editProduct.bind(editBtn));
+    });
+  }
 
-  return products
-    .map((product) => {
-      return `
+  function editProduct() {
+    const productId = this.getAttribute("data-id");
+    const product = productManagement.getProductById(productId);
+
+    document.getElementById("modal-title").textContent = "Edit Product";
+
+    // Clear form
+    clearForm();
+
+    productForm.id.value = product.id;
+    productForm.name.value = product.name;
+    productForm.price.value = product.price;
+    productForm.screen.value = product.screen;
+    productForm.backCamera.value = product.backCamera;
+    productForm.frontCamera.value = product.frontCamera;
+    productForm.image.value = product.img;
+    productForm.desc.value = product.desc;
+    productForm.type.value = product.type;
+
+    showModal();
+  }
+
+  // Add event listeners to delete buttons
+  function addDeleteBtnsEventListeners() {
+    let deleteBtns = productListElment.querySelectorAll(".delete-btn");
+    deleteBtns.forEach((deleteBtn) => {
+      deleteBtn.addEventListener("click", deleteProduct.bind(deleteBtn));
+    });
+  }
+
+  function deleteProduct() {
+    showLoader();
+    const productId = this.getAttribute("data-id");
+    const product = productManagement.getProductById(productId);
+    const response = productManagement.removeProduct(product);
+    response.then(() => {
+      getProductListHtml();
+      hideLoader();
+    });
+  }
+
+  // Observe changes in the product list
+  const observer = new MutationObserver((mutationsList, observer) => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === "childList") {
+        addDeleteBtnsEventListeners();
+        addEditBtnsEventListeners();
+      }
+    }
+  });
+  observer.observe(productListElment, { childList: true, subtree: true });
+
+  function renderProductList(products) {
+    document.getElementById("total-products").textContent = products.length;
+
+    return products
+      .map((product) => {
+        return `
         <tr>
-          <td><input type="checkbox" value="${product.id}" /></td>
           <td>${product.id}</td>
           <td>${product.name}</td>
           <td>${product.price}</td>
@@ -188,16 +235,29 @@ function renderProductList(products) {
           </td>
         </tr>
       `;
-    })
-    .join("");
-}
+      })
+      .join("");
+  }
 
-const loader = document.getElementById("loader");
+  const loader = document.getElementById("loader");
 
-function showLoader() {
-  loader.style.display = "block";
-}
+  function showLoader() {
+    loader.style.display = "block";
+  }
 
-function hideLoader() {
-  loader.style.display = "none";
-}
+  function hideLoader() {
+    loader.style.display = "none";
+  }
+
+  function showModal() {
+    modal.style.display = "flex";
+  }
+
+  function hideModal() {
+    modal.style.display = "none";
+  }
+
+  function clearForm() {
+    productForm.reset();
+  }
+});
