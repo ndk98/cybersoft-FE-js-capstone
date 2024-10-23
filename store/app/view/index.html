@@ -162,40 +162,43 @@
                                 ></i>
                             </button>
                         </div>
-                        <button id="openCartBtn" onclick="openCart()">
+                        <button id="openCartBtn" class="minicart">
+                            <span id="cartCount" class="cart-count">10</span>
                             <i
                                 class="header__cart-icon fa-solid fa-cart-shopping"
                             ></i>
                         </button>
 
                         <!-- Overlay -->
-                        <div
-                            class="overlay"
-                            id="overlay"
-                            onclick="closeCart()"
-                        ></div>
+                        <div class="overlay" id="overlay"></div>
 
                         <!-- Phần giỏ hàng -->
                         <div class="cart-container" id="cart">
                             <!-- Nút X để đóng giỏ hàng -->
-                            <button class="close-btn" onclick="closeCart()">
+                            <button class="close-btn" id="closeCartBtn">
                                 X
                             </button>
                             <!-- render sp ra cart -->
                             <h2>Giỏ hàng</h2>
                             <div id="cart-list" class="cart-item">
-                                <p>Sản phẩm</p>
-
-                                <p>Price</p>
-                                <span
-                                    style="cursor: pointer"
-                                    onclick="removeItem()"
-                                    >🗑️</span
-                                >
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart-items"></tbody>
+                                </table>
                             </div>
                             <hr />
                             <div class="cart-actions">
-                                <p>Total: $<span id="total">0</span></p>
+                                <p class="total-amount">
+                                    Total: $<span id="total">0</span>
+                                </p>
                                 <button class="purchase-btn">Mua hàng</button>
                                 <button
                                     class="clear-cart-btn"
@@ -227,6 +230,6 @@
             referrerpolicy="no-referrer"
         ></script>
         <!-- my js -->
-        <script src="../controller/index.js"></script>
+        <script type="module" src="../controller/index.js"></script>
     </body>
 </html>
