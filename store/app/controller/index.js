@@ -25,7 +25,7 @@ let renderProduct = (productList) => {
              <div class="product-item--box">
         <img src="${product.img}" alt="${product.name}" width="100">
         <h2>${product.name}</h2>
-        <p>Giá: $${product.price}</p>
+        <h3>Giá: $${product.price}</h3>
         <p>Màn hình: ${product.screen}</p>
         <p>Camera sau: ${product.backCamera}</p>
         <p>Camera trước: ${product.frontCamera}</p>
@@ -58,7 +58,7 @@ let gioHang = (mangSanPhamDaThem) => {
         for (let product of productList) {
             if (product.id == productDaThem) {
                 content += `
-                <div class="product-item--box">
+                <div class="product-card">
                 <img src="${product.img}" alt="${product.name}" width="100">
                 <h2>${product.name}</h2>
                 <p>Giá: $${product.price}</p>
@@ -73,7 +73,57 @@ let gioHang = (mangSanPhamDaThem) => {
     document.getElementById("cart-number").innerHTML = tong;
 };
 
-fetchProductList();
+//fillter
+let products = [];
+async function fetchProduct() {
+    try {
+        const response = await fetch(`https://6700eea0b52042b542d64a46.mockapi.io/api/V1/products`)
+        const data = await response.json();
+        products = data
+        createProductUI(products);
+    } catch (error) {
+        console.error("err:", error);
+
+    }
+}
+function createProductUI(productArray) {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = ''; 
+    productArray.forEach(product => {
+       
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+
+        productDiv.innerHTML = `
+            <div class="product-card">
+        <img src="${product.img}" alt="${product.name}" width="100">
+        <h2>${product.name}</h2>
+        <h3>Giá: $${product.price}</h3>
+        <p>Màn hình: ${product.screen}</p>
+        <p>Camera sau: ${product.backCamera}</p>
+        <p>Camera trước: ${product.frontCamera}</p>
+        <p>Mô tả: ${product.desc}</p>
+        <button class="btn-add" data-productId="${product.id}">Add to cart</button>
+        </div>
+        `;
+        productList.appendChild(productDiv);
+    });
+}
+function filterProducts() {
+    const selectedType = document.getElementById('product-filter').value;
+    let filteredProducts;
+
+    if (selectedType === 'all') {
+        filteredProducts = products; 
+    } else {
+       
+        filteredProducts = products.filter(product => product.type.toLowerCase() === selectedType.toLowerCase());
+    }
+    createProductUI(filteredProducts);
+}
+
+document.getElementById('product-filter').addEventListener('change', filterProducts);
+fetchProduct();
 
 function renderCart() {
     let content = "";
@@ -105,6 +155,7 @@ function renderCart() {
     document.getElementById("total").innerText = total;
     updateCartCount();
 }
+
 
 renderCart();
 
@@ -166,3 +217,4 @@ function clearCart() {
     document.querySelector(".cart-item").style.display = "none";
     document.getElementById("total").innerText = "0";
 }
+
