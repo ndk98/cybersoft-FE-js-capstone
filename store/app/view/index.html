@@ -1,150 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- my css -->
+        <link rel="stylesheet" href="./../../assets/css/main.css" />
+        <!-- gg font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- fontawesome -->
+        <link
+            rel="stylesheet"
+            href="../../fontawesome-free-6.6.0-web/css/fontawesome.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../fontawesome-free-6.6.0-web/css/brands.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../../fontawesome-free-6.6.0-web/css/solid.css"
+        />
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- my css -->
-    <link rel="stylesheet" href="./../../assets/css/main.css" />
-    <!-- gg font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="../../fontawesome-free-6.6.0-web/css/fontawesome.css" />
-    <link rel="stylesheet" href="../../fontawesome-free-6.6.0-web/css/brands.css" />
-    <link rel="stylesheet" href="../../fontawesome-free-6.6.0-web/css/solid.css" />
-</head>
+    <body>
+        <div class="app">
+            <header class="header">
+                <div class="grid">
+                    <div class="header-with-search">
+                        <h2>Cyber Phone</h2>
+                        <div class="header__search">
+                            <input
+                                type="text"
+                                class="header__search-input"
+                                placeholder="Nhập để tìm sản phẩm "
+                            />
+                            <div class="header__search-select">
+                                <label
+                                    class="header__search-select-lable"
+                                    for="product-filter"
+                                    >Chọn loại sản phẩm:</label
+                                >
+                                <select
+                                    id="product-filter"
+                                    class="header__search-select-filter"
+                                >
+                                    <option value="all">Tất cả</option>
+                                    <option value="samsung">Samsung</option>
+                                    <option value="iphone">iPhone</option>
+                                </select>
+                            </div>
 
-<body>
-    <div  class=".cart-container">
-        <header class="header">
-            <div class="grid">
-             
-                <div class="header-with-search">
-                  <h2>Cyber Phone</h2>
-                    <div class="header__search">
-                        <input type="text" class="header__search-input" placeholder="Nhập để tìm sản phẩm " />
-                        <div class="header__search-select">
-                            <label class="header__search-select-lable" for="product-filter">Chọn loại sản phẩm:</label>
-                            <select id="product-filter" class="header__search-select-filter" >
-                                <option value="all">Tất cả</option>
-                                <option value="samsung">Samsung</option>
-                                <option value="iphone">iPhone</option>
-                            </select>
-                        </div>
-                        
-                        <button class="header__search-btn">
-                            <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
-                    <button id="openCartBtn" class="minicart">
-                        <span id="cartCount" class="cart-count">10</span>
-                        <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-                    </button>
-
-                    <!-- Overlay -->
-                    <div class="overlay" id="overlay"></div>
-
-                    <!-- Phần giỏ hàng -->
-                    <div class="cart-container" id="cart">
-                        <!-- Nút X để đóng giỏ hàng -->
-                        <button class="close-btn" id="closeCartBtn">
-                            X
-                        </button>
-                        <!-- render sp ra cart -->
-                        <h2>Giỏ hàng</h2>
-                        <div id="cart-list" class="cart-item">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-items"></tbody>
-                            </table>
-                        </div>
-                        <hr />
-                        <div class="cart-actions">
-                            <p class="total-amount">
-                                Total: $<span id="total">0</span>
-                            </p>
-                            <button class="purchase-btn">Mua hàng</button>
-                            <button class="clear-cart-btn" onclick="clearCart()">
-                                Xóa giỏ hàng
+                            <button class="header__search-btn">
+                                <i
+                                    class="header__search-btn-icon fa-solid fa-magnifying-glass"
+                                ></i>
                             </button>
                         </div>
-                    </div>
-                    <!-- <div class="header__cart">
+                        <button id="openCartBtn" class="minicart">
+                            <span id="cartCount" class="cart-count">10</span>
+                            <i
+                                class="header__cart-icon fa-solid fa-cart-shopping"
+                            ></i>
+                        </button>
+
+                        <!-- Overlay -->
+                        <div class="overlay" id="overlay"></div>
+
+                        <!-- Phần giỏ hàng -->
+                        <div class="cart-container" id="cart">
+                            <!-- Nút X để đóng giỏ hàng -->
+                            <button class="close-btn" id="closeCartBtn">
+                                X
+                            </button>
+                            <!-- render sp ra cart -->
+                            <h2>Giỏ hàng</h2>
+                            <div id="cart-list" class="cart-item">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart-items"></tbody>
+                                </table>
+                            </div>
+                            <hr />
+                            <div class="cart-actions">
+                                <p class="total-amount">
+                                    Total: $<span id="total">0</span>
+                                </p>
+                                <button class="purchase-btn">Mua hàng</button>
+                                <button
+                                    class="clear-cart-btn"
+                                    id="clearCartBtn"
+                                >
+                                    Xóa giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                        <!-- <div class="header__cart">
                         <span class="header__cart-number" id="cart-number">0</span>
                         <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
                         <div id="cart-list" class="dropdown-content">
                             <button class="btn_cancel">x</button>
                         </div>
                     </div> -->
+                    </div>
+                </div>
+            </header>
+            <div id="product-list" class="product-item"></div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-top">
+                    <p>Get connected with us on social networks:</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-google"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-content">
+                    <div class="footer-section about">
+                        <h3><i class="fas fa-mobile-alt"></i> CYBER PHONE</h3>
+                        <p>
+                            We pride ourselves on our efficiency and hard work,
+                            but most of all our ability to source you the best
+                            quality and best value products and devices in the
+                            market.
+                        </p>
+                    </div>
+                    <div class="footer-section brands">
+                        <h3>BRANDS</h3>
+                        <a href="#">iPhone</a>
+                        <a href="#">Samsung</a>
+                        <a href="#">Xiaomi</a>
+                        <a href="#">Oppo</a>
+                    </div>
+                    <div class="footer-section links">
+                        <h3>USEFUL LINKS</h3>
+                        <a href="#">Pricing</a>
+                        <a href="#">Settings</a>
+                        <a href="#">Orders</a>
+                        <a href="#">Help</a>
+                    </div>
+                    <div class="footer-section contact">
+                        <h3>CONTACT</h3>
+                        <p>
+                            <i class="fas fa-home"></i> Da Nang, Thanh Khe, VN
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope"></i> cyberphone@mail.com
+                        </p>
+                        <p><i class="fas fa-phone"></i> + 01 234 567 88</p>
+                        <p><i class="fas fa-print"></i> + 01 234 567 89</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2022 Copyright: <strong>Cyber Phone</strong></p>
                 </div>
             </div>
-        </header>
-        <div id="product-list" class="product-item"></div>
-    </div>
-
-    <footer class="footer">
-  <div class="container">
-    <div class="footer-top">
-      <p>Get connected with us on social networks:</p>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-google"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin"></i></a>
-        <a href="#"><i class="fab fa-github"></i></a>
-      </div>
-    </div>
-    <div class="footer-content">
-      <div class="footer-section about">
-        <h3><i class="fas fa-mobile-alt"></i> CYBER PHONE</h3>
-        <p>We pride ourselves on our efficiency and hard work, but most of all our ability to source you the best quality and best value products and devices in the market.</p>
-      </div>
-      <div class="footer-section brands">
-        <h3>BRANDS</h3>
-        <a href="#">iPhone</a>
-        <a href="#">Samsung</a>
-        <a href="#">Xiaomi</a>
-        <a href="#">Oppo</a>
-      </div>
-      <div class="footer-section links">
-        <h3>USEFUL LINKS</h3>
-        <a href="#">Pricing</a>
-        <a href="#">Settings</a>
-        <a href="#">Orders</a>
-        <a href="#">Help</a>
-      </div>
-      <div class="footer-section contact">
-        <h3>CONTACT</h3>
-        <p><i class="fas fa-home"></i> Da Nang, Thanh Khe, VN</p>
-        <p><i class="fas fa-envelope"></i> cyberphone@mail.com</p>
-        <p><i class="fas fa-phone"></i> + 01 234 567 88</p>
-        <p><i class="fas fa-print"></i> + 01 234 567 89</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2022 Copyright: <strong>Cyber Phone</strong></p>
-    </div>
-  </div>
-</footer>
-    <!-- axios cdn  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
-        integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- my js -->
-    <script type="module" src="../controller/index.js"></script>
-   
-</body>
-
+        </footer>
+        <!-- axios cdn  -->
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+            integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <!-- my js -->
+        <script type="module" src="../controller/index.js"></script>
+    </body>
 </html>

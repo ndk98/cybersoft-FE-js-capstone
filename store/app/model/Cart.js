@@ -29,7 +29,7 @@ class Cart {
         if (item.quantity > 1) {
             item.quantity--;
         } else {
-            this.remove(productId);
+            this.removeItem(productId);
         }
         this.saveToLocalStorage();
     }
@@ -61,6 +61,11 @@ class Cart {
             items: this.items,
         };
         localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    clear() {
+        this.items = [];
+        this.saveToLocalStorage();
     }
 }
 
