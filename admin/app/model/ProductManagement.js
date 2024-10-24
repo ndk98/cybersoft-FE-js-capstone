@@ -12,6 +12,14 @@ class ProductManagement {
     return;
   }
 
+  async updateProduct(product) {
+    let response = await this.mockApiProduct.updateProduct(product);
+    this.productList = this.productList.map((item) =>
+      item.id === response.id ? response : item
+    );
+    return;
+  }
+
   async removeProduct(product) {
     let productRemoved = await this.mockApiProduct.removeProduct(product.id);
     this.productList = this.productList.filter(
