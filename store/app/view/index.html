@@ -24,15 +24,15 @@
                 <nav class="header__navbar">
                     <ul class="header__navbar-list">
                         <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                            Vào cửa hàng trên ứng dụng Sốp Pi
+                            Vào cửa hàng trên ứng dụng Cyberphone
 
                             <!-- header QR code -->
                             <div class="header__qr">
-                                <img src="./img/qr sop pi.png" alt="QR code" class="header__qr-img">
+                                <img src="../../img/qr sop pi.png" alt="QR code" class="header__qr-img">
                                 <div class="header__qr-apps">
-                                    <a href="" class="header__qr-link"> <img src="./img/ggplay.png" alt="gg play"
+                                    <a href="" class="header__qr-link"> <img src="../../img/ggplay.png" alt="gg play"
                                             class="header__qr-download-img"></a>
-                                    <a href="" class="header__qr-link"><img src="./img/appsto.png" alt="appstore"
+                                    <a href="" class="header__qr-link"><img src="../../img/appsto.png" alt="appstore"
                                             class="header__qr-download-img"></a>
                                 </div>
                             </div>
@@ -81,22 +81,12 @@
                     <div class="header__search">
                         <input type="text" class="header__search-input" placeholder="Nhập để tìm sản phẩm ">
                         <div class="header__search-select">
-                            <span class="header__search-select-lable">All brands</span>
-                            <i class="header__search-select-icon fa-solid fa-angle-down"></i>
-                            <ul class="header__search-option">
-                                <li class="header__search-option-item header__search-option-item--active">
-                                    <i class="header__search-option-item--arrow fa-solid fa-angle-left"></i>
-                                    <span>SamSung</span>
-                                    <i class="fa-solid fa-mobile-screen-button"></i>
-                                </li>
-
-                                <li class="header__search-option-item">
-                                    <i class="header__search-option-item--arrow fa-solid fa-angle-left"></i>
-                                    <span>Iphone</span>
-                                    <i class="fa-solid fa-headphones-simple"></i>
-                                </li>
-
-                            </ul>
+                           <select name="" id="selLoai">
+                            <option selected>Chọn loại</option>
+                            <option value="all">Tất cả</option>
+                            <option value="SamSung">SamSung</option>
+                            <option value="Iphone">Iphone</option>
+                           </select>
 
                         </div>
                         <button class="header__search-btn">

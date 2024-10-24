@@ -34,7 +34,7 @@ let renderProduct = (productList) => {
     `
     });
     document.getElementById("product-list").innerHTML = content;
- 
+
 }
 
 
@@ -63,7 +63,23 @@ let gioHang = (mangSanPhamDaThem) => {
     document.getElementById("cart-number").innerHTML = tong;
 }
 
+
+
+
+
 fetchProductList();
+
+//filter
+// filterPhone(type){
+//     let listPhoneFillter = [];
+//     if()
+// }
+document.getElementById("selLoai").addEventListener("change", ()=>{
+   const value = document.getElementById("selLoai").value;
+   console.log(value);
+   
+    
+});
 
 // Mở giỏ hàng
 function openCart() {
