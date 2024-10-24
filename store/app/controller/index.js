@@ -48,51 +48,26 @@ function addProduct() {
     cart.add(productId, 1).then(() => renderCart());
 }
 
-let gioHang = (mangSanPhamDaThem) => {
-    let content = "";
-    let tong = 0;
-    if (mangSanPhamDaThem) {
-        mangSanPhamDaThem = mangSanPhamDaThem.split(",");
-    }
-    mangSanPhamDaThem.forEach((productDaThem) => {
-        for (let product of productList) {
-            if (product.id == productDaThem) {
-                content += `
-                <div class="product-card">
-                <img src="${product.img}" alt="${product.name}" width="100">
-                <h2>${product.name}</h2>
-                <p>Giá: $${product.price}</p>
-                </div>
-                `;
-                tong = tong + 1;
-                break; // Dừng vòng lặp
-            }
-        }
-    });
-    document.getElementById("cart-list").innerHTML = content;
-    document.getElementById("cart-number").innerHTML = tong;
-};
-
 //fillter
 let products = [];
 async function fetchProduct() {
     try {
-        const response = await fetch(`https://6700eea0b52042b542d64a46.mockapi.io/api/V1/products`)
+        const response = await fetch(
+            `https://6700eea0b52042b542d64a46.mockapi.io/api/V1/products`
+        );
         const data = await response.json();
-        products = data
+        products = data;
         createProductUI(products);
     } catch (error) {
         console.error("err:", error);
-
     }
 }
 function createProductUI(productArray) {
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = ''; 
-    productArray.forEach(product => {
-       
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
+    const productList = document.getElementById("product-list");
+    productList.innerHTML = "";
+    productArray.forEach((product) => {
+        const productDiv = document.createElement("div");
+        productDiv.classList.add("product");
 
         productDiv.innerHTML = `
             <div class="product-card">
@@ -108,21 +83,30 @@ function createProductUI(productArray) {
         `;
         productList.appendChild(productDiv);
     });
+
+    // Add event listener for each button
+    document.querySelectorAll("button.btn-add").forEach((btn) => {
+        btn.addEventListener("click", addProduct.bind(btn));
+    });
 }
 function filterProducts() {
-    const selectedType = document.getElementById('product-filter').value;
+    const selectedType = document.getElementById("product-filter").value;
     let filteredProducts;
 
-    if (selectedType === 'all') {
-        filteredProducts = products; 
+    if (selectedType === "all") {
+        filteredProducts = products;
     } else {
-       
-        filteredProducts = products.filter(product => product.type.toLowerCase() === selectedType.toLowerCase());
+        filteredProducts = products.filter(
+            (product) =>
+                product.type.toLowerCase() === selectedType.toLowerCase()
+        );
     }
     createProductUI(filteredProducts);
 }
 
-document.getElementById('product-filter').addEventListener('change', filterProducts);
+document
+    .getElementById("product-filter")
+    .addEventListener("change", filterProducts);
 fetchProduct();
 
 function renderCart() {
@@ -153,9 +137,22 @@ function renderCart() {
     });
     document.getElementById("cart-items").innerHTML = content;
     document.getElementById("total").innerText = total;
+
+    // Add event listener for each button
+    document.querySelectorAll("button.btn-remove").forEach((btn) => {
+        btn.addEventListener("click", removeItem.bind(btn));
+    });
+
+    document.querySelectorAll(".btn-increase.qty-btn").forEach((btn) => {
+        btn.addEventListener("click", increaseQuantity.bind(btn));
+    });
+
+    document.querySelectorAll(".btn-decrease.qty-btn").forEach((btn) => {
+        btn.addEventListener("click", decreaseQuantity.bind(btn));
+    });
+
     updateCartCount();
 }
-
 
 renderCart();
 
@@ -190,31 +187,34 @@ function closeCart() {
 
 // Xóa sản phẩm khỏi giỏ hàng
 function removeItem() {
-    document.querySelector(".cart-item").style.display = "none";
-    document.getElementById("total").innerText = "0";
+    let productId = this.getAttribute("data-productId");
+    cart.removeItem(productId);
+    renderCart();
 }
 
-// Tăng giảm số lượng sản phẩm
-let quantity = 1;
-// let pricePerItem = price;
-
 function increaseQuantity() {
-    quantity++;
-    document.getElementById("quantity").innerText = quantity;
-    document.getElementById("total").innerText = quantity * pricePerItem;
+    let productId = this.getAttribute("data-productId");
+    cart.increaseQuantity(productId);
+    renderCart();
 }
 
 function decreaseQuantity() {
-    if (quantity > 1) {
-        quantity--;
-        document.getElementById("quantity").innerText = quantity;
-        document.getElementById("total").innerText = quantity * pricePerItem;
+    let productId = this.getAttribute("data-productId");
+    cart.decreaseQuantity(productId);
+    renderCart();
+}
+
+// Remove all items from cart
+let clearCartBtn = document.getElementById("clearCartBtn");
+clearCartBtn.addEventListener("click", () => {
+    if (cart.getItems().length === 0) {
+        alert("Giỏ hàng của bạn đã trống!");
+        return;
     }
-}
 
-// Xóa toàn bộ giỏ hàng
-function clearCart() {
-    document.querySelector(".cart-item").style.display = "none";
-    document.getElementById("total").innerText = "0";
-}
-
+    if (confirm("Bạn có chắc chắn muốn xóa toàn bộ sản phẩm khỏi giỏ hàng?")) {
+        cart.clear();
+        renderCart();
+    }
+    return;
+});
