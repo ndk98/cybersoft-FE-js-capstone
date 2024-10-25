@@ -3,6 +3,18 @@
     height: 120px;
     background-image: linear-gradient(0, #d70018, #2a73dc);
     max-width: 100%;
+    display: flex;
+    justify-content: center;
+   
+  }
+  #text-brand{
+    font-size: 24px;
+    color: white;
+    margin-bottom: 10px;
+    flex: none;
+    // margin: unset;
+    margin-top: 50px;
+
   }
   
   .header__navbar {
