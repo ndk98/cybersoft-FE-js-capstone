@@ -17,79 +17,80 @@
     <link rel="stylesheet" href="../../fontawesome-free-6.6.0-web/css/solid.css" />
 </head>
 
-<body>
-    <div class="app">
-
-        <header class="header">
-            <a href="../../../index.html">
+    <body>
+        <div class="app">
+            <header class="header">
+               <a id="no-underline" href="../../../index.html">
                 <h2 id="text-brand">Cyber Phone</h2>
-            </a>
-            <div class="grid">
-
-                <div class="header-with-search">
-
+               </a>
+                <div class="header-right">
                     <div class="header__search">
-                        <input type="text" class="header__search-input" placeholder="Nhập để tìm sản phẩm " />
-                        <div class="header__search-select">
-                            <label class="header__search-select-lable" for="product-filter">Chọn loại sản phẩm:</label>
-                            <select id="product-filter" class="header__search-select-filter">
-                                <option value="all">Tất cả</option>
-                                <option value="samsung">Samsung</option>
-                                <option value="iphone">iPhone</option>
-                            </select>
-                        </div>
-
+                        <input
+                            type="text"
+                            class="header__search-input"
+                            placeholder="Nhập để tìm sản phẩm "
+                        />
                         <button class="header__search-btn">
-                            <i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
+                            <i
+                                class="header__search-btn-icon fa-solid fa-magnifying-glass"
+                            ></i>
                         </button>
                     </div>
                     <button id="openCartBtn" class="minicart">
-                        <span id="cartCount" class="cart-count">10</span>
-                        <i class="header__cart-icon fa-solid fa-cart-shopping"></i>
+                        <i class="header__cart-icon fa-solid fa-cart-shopping">
+                            <span id="cartCount" class="cart-count">10</span>
+                        </i>
                     </button>
-
-                    <!-- Overlay -->
-                    <div class="overlay" id="overlay"></div>
-
-                    <!-- Phần giỏ hàng -->
-                    <div class="cart-container" id="cart">
-                        <!-- Nút X để đóng giỏ hàng -->
-                        <button class="close-btn" id="closeCartBtn">
-                            X
-                        </button>
-                        <!-- render sp ra cart -->
-                        <h2>Giỏ hàng</h2>
-                        <div id="cart-list" class="cart-item">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cart-items"></tbody>
-                            </table>
-                        </div>
-                        <hr />
-                        <div class="cart-actions">
-                            <p class="total-amount">
-                                Total: $<span id="total">0</span>
-                            </p>
-                            <button class="purchase-btn">Mua hàng</button>
-                            <button class="clear-cart-btn" id="clearCartBtn">
-                                Xóa giỏ hàng
-                            </button>
-                        </div>
-                    </div>
-
                 </div>
+            </header>
+            <div class="filter">
+                <label class="header__search-select-lable" for="product-filter"
+                    >Chọn loại sản phẩm:</label
+                >
+                <select
+                    id="product-filter"
+                    class="header__search-select-filter"
+                >
+                    <option value="all">Tất cả</option>
+                    <option value="samsung">Samsung</option>
+                    <option value="iphone">iPhone</option>
+                </select>
             </div>
-        </header>
-        <div id="product-list" class="product-item"></div>
-    </div>
+            <div id="product-list" class="product-item"></div>
+        </div>
+
+        <!-- Overlay -->
+        <div class="overlay" id="overlay"></div>
+
+        <!-- Phần giỏ hàng -->
+        <div class="cart-container" id="cart">
+            <!-- Nút X để đóng giỏ hàng -->
+            <button class="close-btn" id="closeCartBtn">X</button>
+            <!-- render sp ra cart -->
+            <h2>Giỏ hàng</h2>
+            <div id="cart-list" class="cart-item">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+                </table>
+            </div>
+            <hr />
+            <div class="cart-actions">
+                <p class="total-amount">Total: $<span id="total">0</span></p>
+                <button class="purchase-btn">Mua hàng</button>
+                <button class="clear-cart-btn" id="clearCartBtn">
+                    Xóa giỏ hàng
+                </button>
+            </div>
+        </div>
 
     <footer class="footer">
         <div class="container">

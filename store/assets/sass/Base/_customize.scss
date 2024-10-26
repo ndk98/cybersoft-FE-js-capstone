@@ -1,41 +1,42 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
-  }
-  
-  html {
+    box-sizing: border-box;
+}
+
+html {
     font-size: 62.5%;
     line-height: 16px;
     font-family: "Roboto", serif;
     box-sizing: border-box;
-  }
-  
-  p {
+}
+
+p {
     font-size: 1.6rem;
-  }
-  
-  .grid {
+}
+
+.grid {
     width: 1200px;
     max-width: 100%;
     margin: 0 auto;
-  }
-  
-  .grid__full-witdh {
+}
+
+.grid__full-witdh {
     width: 100%;
-  }
-  
-  .grid__row {
+}
+
+.grid__row {
     display: flex;
     flex-wrap: wrap;
-  }
-  
-  :root {
+}
+
+:root {
     --white-color: #fff;
     --black-color: #000;
     --text-color: #333;
     --navbar-height: 34px;
     --header-height: 120px;
-    --header-with-search-height: calc(var(--navbar-height)-var(--header-height));
-  }
-  
+    --header-with-search-height: calc(
+        var(--navbar-height)-var(--header-height)
+    );
+}
